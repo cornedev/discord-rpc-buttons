@@ -52,7 +52,7 @@ jobs:
           submodules: recursive
 
       - name: install dependencies
-        run: brew install libarchive nlohmann-json qt
+        run: brew cmake
 
       - name: configure cmake
         run: |
