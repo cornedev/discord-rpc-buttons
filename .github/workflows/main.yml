@@ -79,7 +79,7 @@ jobs:
             mingw-w64-x86_64-toolchain
             mingw-w64-x86_64-cmake
 
-      - name: build project
+      - name: build project windows
         shell: msys2 {0}
         run: |
           cmake -S . -B build -G "MinGW Makefiles"
