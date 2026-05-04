@@ -5,7 +5,7 @@ permissions:
 
 on:
   push:
-    branches: 
+    branches:
       - master
       - main
     paths:
@@ -32,14 +32,19 @@ jobs:
       - name: install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            cmake \
+          sudo apt-get install -y cmake
 
       - name: configure cmake
         run: cmake -S . -B build
 
       - name: build project
         run: cmake --build build
+
+      - name: upload linux build
+        uses: actions/upload-artifact@v4
+        with:
+          name: discord-rpc-linux
+          path: build/
 
   build-macos:
     name: build discord-rpc (macos)
@@ -51,15 +56,17 @@ jobs:
         with:
           submodules: recursive
 
-      - name: install dependencies
-        run: brew cmake
-
       - name: configure cmake
-        run: |
-          cmake -S . -B build
+        run: cmake -S . -B build
 
       - name: build project
         run: cmake --build build
+
+      - name: upload macos build
+        uses: actions/upload-artifact@v4
+        with:
+          name: discord-rpc-macos
+          path: build/
 
   build-windows-mingw:
     name: build discord-rpc (windows)
@@ -84,3 +91,9 @@ jobs:
         run: |
           cmake -S . -B build -G "MinGW Makefiles"
           cmake --build build
+
+      - name: upload windows build
+        uses: actions/upload-artifact@v4
+        with:
+          name: discord-rpc-windows
+          path: build/
